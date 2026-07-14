@@ -5,7 +5,7 @@ from langchain_core.messages import SystemMessage
 from tools.analyzer import analyzer_tool
 
 # Initialize the Gemini model
-llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0)
+llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
 
 # Bind our tools to the LLM
 tools = [analyzer_tool]
