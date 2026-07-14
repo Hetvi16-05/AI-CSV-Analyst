@@ -41,4 +41,15 @@ An intelligent, agentic data analysis tool powered by LLMs. Just upload your CSV
 ```
 
 ## 🎯 Getting Started
-*(Coming soon during Phase 1 development!)*
+
+To run this project locally, you need to set up your Google Cloud Platform (GCP) API key.
+
+1. **Clone the repository**
+2. **Install dependencies**: `pip install -r requirements.txt`
+3. **Configure Environment Variables**:
+   Create a `.env` file in the root directory of the project and add your GCP API key:
+   ```env
+   GOOGLE_API_KEY="your-gcp-api-key-here"
+   ```
+   *(Note: The `.env` file is ignored by Git, so your secret will be kept safe locally.)*
+4. **Run the App**: `streamlit run app.py`
