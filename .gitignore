@@ -1,1 +1,21 @@
+# Secrets — never commit API keys or env configs
 .env
+.env.*
+
+# Uploaded data files — user data must not be versioned
+uploads/*
+!uploads/.gitkeep
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# OS artefacts
+.DS_Store
+Thumbs.db
