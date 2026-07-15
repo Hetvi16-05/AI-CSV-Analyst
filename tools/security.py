@@ -101,3 +101,19 @@ def sanitize_user_input(text: str) -> tuple[str, list[str]]:
         )
 
     return cleaned, warnings
+
+
+# ---------------------------------------------------------------------------
+# Application-wide security constants
+# ---------------------------------------------------------------------------
+
+# Maximum number of agent queries allowed per Streamlit session.
+# Prevents a single user from hammering the local Ollama model.
+MAX_QUERIES_PER_SESSION: int = 30
+
+# Maximum file size accepted for CSV uploads (50 MB).
+MAX_FILE_SIZE_BYTES: int = 50 * 1024 * 1024  # 50 MB
+
+# Maximum number of rows loaded from a CSV into pandas.
+# Protects against out-of-memory attacks with huge files.
+MAX_ROWS: int = 500_000
