@@ -117,3 +117,25 @@ MAX_FILE_SIZE_BYTES: int = 50 * 1024 * 1024  # 50 MB
 # Maximum number of rows loaded from a CSV into pandas.
 # Protects against out-of-memory attacks with huge files.
 MAX_ROWS: int = 500_000
+
+
+def validate_upload_size(num_bytes: int) -> None:
+    """
+    Raise ``ValueError`` if *num_bytes* exceeds ``MAX_FILE_SIZE_BYTES``.
+
+    Intended to be called before writing an uploaded file to disk so that
+    oversized files are rejected early without wasting I/O.
+
+    Args:
+        num_bytes: Size of the uploaded content in bytes.
+
+    Raises:
+        ValueError: With a human-readable message if the file is too large.
+    """
+    if num_bytes > MAX_FILE_SIZE_BYTES:
+        max_mb = MAX_FILE_SIZE_BYTES // (1024 * 1024)
+        actual_mb = num_bytes / (1024 * 1024)
+        raise ValueError(
+            f"Upload rejected: file is {actual_mb:.1f} MB, "
+            f"which exceeds the {max_mb} MB limit."
+        )

@@ -1,7 +1,7 @@
 import os
 import re
 import pandas as pd
-from tools.security import MAX_FILE_SIZE_BYTES, MAX_ROWS
+from tools.security import MAX_ROWS, validate_upload_size
 
 
 def _sanitize_filename(name: str) -> str:
@@ -39,14 +39,9 @@ def save_and_load_csv(uploaded_file) -> pd.DataFrame:
     safe_name = _sanitize_filename(uploaded_file.name)
     file_path = os.path.join("uploads", safe_name)
 
-    # --- Security check 1: File size cap ---
+    # --- Security check 1: File size cap (delegated to security module) ---
     file_bytes = uploaded_file.getbuffer()
-    if len(file_bytes) > MAX_FILE_SIZE_BYTES:
-        max_mb = MAX_FILE_SIZE_BYTES // (1024 * 1024)
-        raise ValueError(
-            f"File too large: {len(file_bytes) / (1024*1024):.1f} MB. "
-            f"Maximum allowed size is {max_mb} MB."
-        )
+    validate_upload_size(len(file_bytes))  # raises ValueError if too large
 
     # Save file physically
     with open(file_path, "wb") as f:
